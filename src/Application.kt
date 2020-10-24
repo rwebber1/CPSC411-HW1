@@ -18,7 +18,7 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
     routing{
-        get("/ClaimService/add") {
+        post("/ClaimService/add") {
             val contType = call.request.contentType()
             val data = call.request.receiveChannel()
             val dataLength = data.availableForRead
@@ -35,7 +35,7 @@ fun Application.module(testing: Boolean = false) {
             call.respondText("the POST response was successfully processed.", status= HttpStatusCode.OK, contentType = ContentType.Text.Plain)
         }
 
-        post("ClaimService/getAll"){
+        get("ClaimService/getAll"){
             val claimList = ClaimDao().getAll()
             println("The number of claims: ${claimList.size}")
 
